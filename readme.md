@@ -1,63 +1,112 @@
 <div align="center"><img src="./logo.svg" alt="Logo" width="80" height="80"></div>
 
-<h1 align="center">Technical Challenge - Holiday Agency</h1>
+<h1 align="center">Technical Challenge - Interstellar Route Planner</h1>
 
 # Brief
-A holiday agency would like to suggest the lowest travel cost for holiday journeys to their customers.  
-A return journey consists of the following parts:
+**Hyperspace Tunneling Corp** manages a system-to-system web of hyperspace accelerators that spans the United Terran Systems. They charge a fee to their users in order to use their network but they want to expand their business.
 
-1. Journey to the airport:
-    * **Taxi**: £0.40/mile - (allows up to 4 people per taxi - e.g. require 2 taxis if 5 people travel together)
-    * **Car**: £0.20/mile - (allows up to 4 people per car), additional £3 parking fee
+Recently, they've expanded into transporting people through their network using light transport space-ships that can take up to 5 people to the accelerator and then use their hyperspace-enabled ships to travel to the destination accelerator.
 
-2. An outbound and an inbound flight journey:
-    * **Flight**: £0.10/passenger/mile
+We've been asked to develop a system to help calculate the costs of this journey for their clients.
 
-This flight agency keeps a table with its airports and their connections:
+A journey is defined as:
 
-| Airport ID | Airport Name                                | Latitude  | Longitude | Connections and distance                                                                                           |
-| ---------- | ------------------------------------------- | --------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
-| IST        | Istanbul Airport                            | 41.262222 | 28.727778 | ATH: 100mi<br/>AMS: 1200mi<br/>SVO: 800mi<br/>VIE: 750mi                                                           |
-| CDG        | Charles de Gaulle Airport                   | 49.009722 | 2.547778  | ORY: 10mi<br/>LHR: 100mi<br/>AMS: 120mi<br/>FRA: 130mi<br/>ZRH: 120mi<br/>FCO: 500mi<br/>LIS: 750mi<br/>MAD: 600mi |
-| LHR        | Heathrow Airport                            | 51.4775   | -0.461389 | LGW: 10mi<br/>CDG: 50mi<br/>AMS: 100mi<br/>FRA: 230mi<br/>MAD: 500mi<br/>LIS: 350mi                                |
-| AMS        | Schiphol Airport                            | 52.308056 | 4.764167  | LHR: 100mi<br/>FRA: 90mi<br/>CDG: 110mi<br/>OSL: 500mi                                                             |
-| SVO        | Sheremetyevo International Airport          | 55.972778 | 37.414722 | VKO: 10mi<br/>DME: 15mi<br/>LED: 200mi<br/>ATH: 1300mi                                                             |
-| FRA        | Frankfurt Airport                           | 50.033333 | 8.570556  | VIE: 300mi<br/>MUC: 90mi<br/>ZRH: 100mi<br/>CDG: 105mi<br/>LHR: 120mi<br/>AMS: 100mi<br/>DME: 1500mi               |
-| MAD        | Adolfo Suárez Madrid-Barajas Airport        | 40.472222 | -3.560833 | LIS: 145mi<br/>FCO: 220mi<br/>LHR: 500mi<br/>BCN: 120mi                                                            |
-| DME        | Moscow Domodedovo Airport                   | 55.408611 | 37.906111 | ATH: 1105mi<br/>OSL: 980mi<br/>VKO: 15mi<br/>SVO: 20mi<br/>LED: 210mi<br/>ATH: 1000mi                              |
-| BCN        | Josep Tarradellas Barcelona-El Prat Airport | 41.296944 | 2.078333  | MAD: 50mi<br/>FCO: 140mi                                                                                           |
-| VKO        | Vnukovo International Airport               | 55.596111 | 37.2675   | SVO: 5mi<br/>DME: 8mi                                                                                              |
-| MUC        | Munich Airport                              | 48.353889 | 11.786111 | VIE: 90mi<br/>ZRH: 80mi<br/>FRA: 100mi<br/>FCO: 200mi                                                              |
-| LED        | Pulkovo Airport                             | 59.800278 | 30.2625   | VKO: 190mi<br/>SVO: 170mi<br/>OSL: 300mi<br/>LIS: 2500mi                                                           |
-| ORY        | Orly Airport                                | 48.723333 | 2.379444  | CDG: 5mi<br/>AMS: 150mi                                                                                            |
-| LGW        | Gatwick Airport                             | 51.148056 | -0.190278 | LHR: 10mi<br/>ORY: 125mi                                                                                           |
-| FCO        | Leonardo da Vinci-Fiumicino Airport         | 41.800278 | 12.238889 | ATH: 200mi<br/>BCN: 190mi<br/>IST: 310mi<br/>AMS: 495mi                                                            |
-| LIS        | Lisbon Airport                              | 38.774167 | -9.134167 | MAD: 100mi<br/>BCN: 300mi<br/>LHR: 300mi<br/>SVO: 2100mi                                                           |
-| OSL        | Oslo Airport - Gardermoen                   | 60.202778 | 11.083889 | LED: 320mi<br/>LHR: 390mi<br/>FRA: 720mi<br/>AMS: 690mi<br/>VKO: 980mi                                             |
-| ZRH        | Zurich Airport                              | 47.464722 | 8.549167  | FCO: 150mi<br/>MUC: 85mi<br/>VIE: 190mi<br/>FRA: 100mi<br/>CDG: 180mi<br/>AMS: 310mi                               |
-| ATH        | Athens International Airport                | 37.936389 | 23.947222 | IST: 150mi<br/>FCO: 200mi<br/>MAD: 500mi                                                                           |
-| VIE        | Vienna International Airport                | 48.110833 | 16.570833 | IST: 350mi<br/>VKO: 890mi<br/>OSL: 880mi<br/>MUC: 95mi<br/>FCO: 200mi                                              |
+1. Journey to the accelerator:
+    * **Personal Transport**: £0.30/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost) plus £5 per day for ship storage at the accelerator
+    * **HTC Transport**: £0.45/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) - (fits up to 5 people)
 
-While the route `A->B` can exist, it doesn't necessarily mean that `B->A` exists. Additionally, the mileage may be different for each direction.
+2. An outbound and an inbound hyperspace journey:
+    * **Spaceflight**: £0.10/passenger/hyperplane-unit
 
-As a side-note, some of the mileages might not be at all accurate but imagine that someone make some fairly large one-way portals in the sky that can shorten the distance between two airports.
+HTC keeps a table with its accelerators and their connections:
 
-## Airport Data
-Feel free to use any form of storage for the airport and route information.
+| Accelerator ID | Accelerator Name | Connections and Hyperplane units of distance (HU)                          |
+| -------------- | ---------------- | -------------------------------------------------------------------------- |
+| SOL            | Sol              | RAN: 100HU<br/>PRX: 90HU<br/>SIR: 100HU<br/>ARC: 200HU<br/>ALD: 250HU<br/> |
+| PRX            | Proxima          | SOL: 90HU<br/>SIR: 100HU<br/>ALT: 150HU<br/>                               |
+| SIR            | Sirius           | SOL: 80HU<br/>PRX: 10HU<br/>CAS: 200HU<br/>                                |
+| CAS            | Castor           | SIR: 200HU<br/>PRO: 120HU<br/>                                             |
+| PRO            | Procyon          | CAS: 80HU<br/>                                                             |
+| DEN            | Denebula         | PRO: 5HU<br/>ARC: 2HU<br/>FOM: 8HU<br/>RAN: 100HU<br/>ALD: 3HU<br/>        |
+| RAN            | Ran              | SOL: 100HU<br/>                                                            |
+| ARC            | Arcturus         | SOL: 500HU<br/>DEN: 120HU<br/>                                             |
+| FOM            | Fomalhaut        | PRX: 10HU<br/>DEN: 20HU<br/>ALS: 9HU<br/>                                  |
+| ALT            | Altair           | FOM: 140HU<br/>VEG: 220HU<br/>                                             |
+| VEG            | Vega             | ARC: 220HU<br/>ALD: 580HU<br/>                                             |
+| ALD            | Aldermain        | SOL: 200HU<br/>ALS: 160HU<br/>VEG: 320HU<br/>                              |
+| ALS            | Alshain          | ALT: 1HU<br/>ALD: 1HU<br/>                                                 |
+
+```mermaid
+graph TD
+    SOL[Sol]
+    PRX[Proxima]
+    SIR[Sirius]
+    CAS[Castor]
+    PRO[Procyon]
+    DEN[Denebula]
+    RAN[Ran]
+    ARC[Arcturus]
+    FOM[Fomalhaut]
+    ALT[Altair]
+    VEG[Vega]
+    ALD[Aldermain]
+    ALS[Alshain]
+
+    SOL --100--> RAN
+    SOL --90--> PRX
+    SOL --100--> SIR
+    SOL --200--> ARC
+    SOL --250--> ALD
+    PRX --90--> SOL
+    PRX --100--> SIR
+    PRX --150--> ALT
+    SIR --80--> SOL
+    SIR --10--> PRX
+    SIR --200--> CAS
+    CAS --200--> SIR
+    CAS --80--> PRO
+    PRO --80--> CAS
+    DEN --5--> PRO
+    DEN --2--> ARC
+    DEN --8--> FOM
+    DEN --100--> RAN
+    DEN --3--> ALD
+    RAN --100--> SOL
+    ARC --500--> SOL
+    ARC --120--> DEN
+    FOM --10--> PRX
+    FOM --20--> DEN
+    FOM --9--> ALS
+    ALT --140--> FOM
+    ALT --220--> VEG
+    VEG --220--> ARC
+    VEG --580--> ALD
+    ALD --200--> SOL
+    ALD --160--> ALS
+    ALD --320--> VEG
+    ALS --1--> ALT
+    ALS --1--> ALD
+```
+
+Accelerators are typically one-way, so while the route `A->B` can exist, it doesn't necessarily mean that `B->A` exists. Additionally, the hyperplane distance varies depending on which way you travel - Our best theories say the hyperplane not only does not match real-space but also has a preferred direction.
+
+## Accelerator Data
+Feel free to use any form of storage for the accelerator and routes information.
 
 You can make use of [`create-local-db.sh`](./create-local-db.sh) which sets up a local DynamoDB with the data in the table above.
 
 
 ## Your task:
-Write a program that suggests the cheapest quote for their journeys.
+Write a program that suggests the cheapest quote for a customer's journeys.
 
 This program should expose its logic via an API so that it can be consumed by other services or a browser client.
 
 The API should expose, at least, the following endpoints:
-* `GET`: `/vehicle/{numberOfPeople}/{distance}` - returns the cheapest vehicle to use (and the cost) for the given `numberOfPeople` and `distance` in miles
-* `GET`: `/airports` - returns a list of airports
-* `GET`: `/airports/{airportId}` - return details of a single airport
-* `GET`: `/airports/{airportId}/to/{airportToId}` - returns the cheapest quote for a journey from `airportId` to `airportToId`
+* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` or passengers and `days` of parking
+  * Accelerators typically sit above the star, so if you're on Earth and want to travel to the Sol accelerator, the distance would be ~1AU.
+* `GET`: `/accelerators` - returns a list of accelerators with their information
+* `GET`: `/accelerators/{acceleratorID}` - returns the details of a single accelerator
+* `GET`: `/accelerators/{acceleratorID}/to/{targetAcceleratorID}` - returns the cheapest route from `acceleratorID` to `targetAcceleratorID`
 
 These endpoints should be public.
 
