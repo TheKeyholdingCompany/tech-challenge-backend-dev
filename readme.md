@@ -113,7 +113,7 @@ These endpoints should be public.
 ### Expectations
 * A git repository with the solution
     * Application code
-        * Use any programming language you like
+        * Use any programming language you like (unless stated otherwise)
     * API documentation - e.g. Swagger, Postman collection
     * Any tests
     * Any CI/CD configuration - e.g. github actions
