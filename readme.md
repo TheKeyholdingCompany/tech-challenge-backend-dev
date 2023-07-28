@@ -12,7 +12,7 @@ We've been asked to develop a system to help calculate the costs of this journey
 A journey is defined as:
 
 1. Journey to the accelerator:
-    * **Personal Transport**: £0.30/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost) plus £5 per day for ship storage at the accelerator
+    * **Personal Transport**: £0.30/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost) plus £5 per day for ship storage at the accelerator - (fits up to 4 people)
     * **HTC Transport**: £0.45/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) - (fits up to 5 people)
 
 2. An outbound and an inbound hyperspace journey:
