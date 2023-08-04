@@ -102,7 +102,7 @@ Write a program that suggests the cheapest quote for a customer's journeys.
 This program should expose its logic via an API so that it can be consumed by other services or a browser client.
 
 The API should expose, at least, the following endpoints:
-* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` or passengers and `days` of parking
+* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` or passengers and `days` of parking (i.e. vehicle storage at the accelerator)
   * Accelerators typically sit above the star, so if you're on Earth and want to travel to the Sol accelerator, the distance would be ~1AU.
 * `GET`: `/accelerators` - returns a list of accelerators with their information
 * `GET`: `/accelerators/{acceleratorID}` - returns the details of a single accelerator
