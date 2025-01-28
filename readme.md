@@ -3,24 +3,27 @@
 <h1 align="center">Technical Challenge - Interstellar Route Planner</h1>
 
 # Brief
-**Hyperspace Tunneling Corp** manages a system-to-system web of hyperspace accelerators that spans the United Terran Systems. They charge a fee to their users in order to use their network but they want to expand their business.
+**Hyperspace Tunneling Corp** manages a system-to-system web of hyperspace gates that spans the United Terran Systems. They charge a fee to their users in order to use their network but they want to expand their business.
 
-Recently, they've expanded into transporting people through their network using light transport space-ships that can take up to 5 people to the accelerator and then use their hyperspace-enabled ships to travel to the destination accelerator.
+Recently, they've expanded into transporting people through their network using light transport space-ships that can take up to 5 people to the gate and then use their hyperspace-enabled ships to travel to the destination gate.
 
 We've been asked to develop a system to help calculate the costs of this journey for their clients.
 
 A journey is defined as:
 
-1. Journey to the accelerator:
-    * **Personal Transport**: £0.30/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost) plus £5 per day for ship storage at the accelerator - (fits up to 4 people)
-    * **HTC Transport**: £0.45/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) - (fits up to 5 people)
+1. Journey to the gate:
+    * **Personal Transport**: £0.30/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost) plus £5 per day for ship storage at the gate - (fits up to 4 people)
+    * **HSTC Transport**: £0.45/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) - (fits up to 5 people)
 
 2. An outbound and an inbound hyperspace journey:
     * **Spaceflight**: £0.10/passenger/hyperplane-unit
 
-HTC keeps a table with its accelerators and their connections:
+> * [AU](https://en.wikipedia.org/wiki/Astronomical_unit) (Astronomical Unit) is roughly 149597870.7 Km - the average distance between the Earth and the Sun.
+> * HU (Hyperplane Unit) is a fictional unit which measures the distance between two gates in the hyperplane - it has no correlation to real-space measurements.
 
-| Accelerator ID | Accelerator Name | Connections and Hyperplane units of distance (HU)                          |
+HSTC keeps a table with its gates and their connections:
+
+| Gate ID | Gate Name | Connections and Hyperplane units of distance (HU)                          |
 | -------------- | ---------------- | -------------------------------------------------------------------------- |
 | SOL            | Sol              | RAN: 100HU<br/>PRX: 90HU<br/>SIR: 100HU<br/>ARC: 200HU<br/>ALD: 250HU<br/> |
 | PRX            | Proxima          | SOL: 90HU<br/>SIR: 100HU<br/>ALT: 150HU<br/>                               |
@@ -88,39 +91,40 @@ graph TD
     ALS --1--> ALD
 ```
 
-Accelerators are typically one-way, so while the route `A->B` can exist, it doesn't necessarily mean that `B->A` exists. Additionally, the hyperplane distance varies depending on which way you travel - Our best theories say the hyperplane not only does not match real-space but also has a preferred direction.
+Gates are typically one-way, so while the route `A->B` can exist, it doesn't necessarily mean that `B->A` exists. Additionally, the hyperplane distance varies depending on which way you travel - Our best theories say the hyperplane not only does not match real-space but also has a preferred direction.
 
-## Accelerator Data
-Feel free to use any form of storage for the accelerator and routes information.
+## Gate Data
+Feel free to use any form of storage for the gate and routes information.
 
-You can make use of [`create-local-db.sh`](./create-local-db.sh) which sets up a local DynamoDB with the data in the table above.
+You can make use of the SQL script [`create-local-postgres-db.sql`](./create-local-postgres-db.sql) to seed a postgres database.
 
 
 ## Your task:
-Write a program that suggests the cheapest quote for a customer's journeys.
-
-This program should expose its logic via an API so that it can be consumed by other services or a browser client.
+Write a server that exposes an API that allows a user to calculate the cost of their journey:
+* From wherever they are to the nearest gate
+* From one gate to a destination gate
 
 The API should expose, at least, the following endpoints:
-* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` or passengers and `days` of parking (i.e. vehicle storage at the accelerator)
-  * Accelerators typically sit above the star, so if you're on Earth and want to travel to the Sol accelerator, the distance would be ~1AU.
-* `GET`: `/accelerators` - returns a list of accelerators with their information
-* `GET`: `/accelerators/{acceleratorID}` - returns the details of a single accelerator
-* `GET`: `/accelerators/{acceleratorID}/to/{targetAcceleratorID}` - returns the cheapest route from `acceleratorID` to `targetAcceleratorID`
+* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` or passengers and `days` of parking (i.e. vehicle storage at the gate)
+  * Gates typically sit above the star, so if you're on Earth and want to travel to the Sol gate, the distance would be ~1AU.
+* `GET`: `/gates` - returns a list of gates with their information
+* `GET`: `/gates/{gateCode}` - returns the details of a single gate
+* `GET`: `/gates/{gateCode}/to/{targetGateCode}` - returns the cheapest route from `gateCode` to `targetGateCode`
 
 These endpoints should be public.
 
 ### Expectations
+* A link to the deployed API
+* API documentation - e.g. Swagger, Postman collection
+* Any diagrams, plans or notes you made while designing the solution
 * A git repository with the solution
     * Application code
         * Use any programming language you like (unless stated otherwise)
-    * API documentation - e.g. Swagger, Postman collection
-    * Any tests
+    * Infrastructure config/code - e.g. Terraform
+    * Tests
     * Any CI/CD configuration - e.g. github actions
-    * Any infrastructure-like config - e.g. Dockerfile(s)
     * Any supporting scripts to generate, package, run, etc...
-* A dockerhub image with the solution and instructions on how to run it (and/or a docker-compose file)
-    * Optionally, feel free to host this for us somewhere as well.
+* Instructions on how to run the application locally
 
 # Getting help
 If you have any questions, please feel free to reach out to me via email (tco@keyholding.com).
