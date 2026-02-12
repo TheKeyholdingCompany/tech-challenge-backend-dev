@@ -12,11 +12,14 @@ We've been asked to develop a system to help calculate the costs of this journey
 A journey is defined as:
 
 1. Journey to the gate:
-    * **Personal Transport**: £0.30/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost) plus £5 per day for ship storage at the gate - (fits up to 4 people)
-    * **HSTC Transport**: £0.45/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) - (fits up to 5 people)
+    * **Personal Transport**: £0.26/[AU](https://en.wikipedia.org/wiki/Astronomical_unit) (standard fuel cost)
+      * Fits up to 4 people
+      * Plus £5 for the first day of ship storage at the gate hangars and £3 for the subsequent days
+    * **HSTC Shuttle**: £0.47/[AU](https://en.wikipedia.org/wiki/Astronomical_unit)
+      * Fits up to 5 people
 
 2. An outbound and an inbound hyperspace journey:
-    * **Spaceflight**: £0.10/passenger/hyperplane-unit
+    * **Spaceflight**: £0.15/passenger/hyperplane-unit
 
 > * [AU](https://en.wikipedia.org/wiki/Astronomical_unit) (Astronomical Unit) is roughly 149597870.7 Km - the average distance between the Earth and the Sun.
 > * HU (Hyperplane Unit) is a fictional unit which measures the distance between two gates in the hyperplane - it has no correlation to real-space measurements.
@@ -105,13 +108,14 @@ Write a server that exposes an API that allows a user to calculate the cost of t
 * From one gate to a destination gate
 
 The API should expose, at least, the following endpoints:
-* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` or passengers and `days` of parking (i.e. vehicle storage at the gate)
+* `GET`: `/transport/{distance}?passengers={number}&parking={days}` - returns the cheapest vehicle to use (and the cost of the journey) for the given `distance` (in AUs), `number` of passengers and `days` of parking (i.e. vehicle storage at the gate)
   * Gates typically sit above the star, so if you're on Earth and want to travel to the Sol gate, the distance would be ~1AU.
 * `GET`: `/gates` - returns a list of gates with their information
 * `GET`: `/gates/{gateCode}` - returns the details of a single gate
 * `GET`: `/gates/{gateCode}/to/{targetGateCode}` - returns the cheapest route from `gateCode` to `targetGateCode`
+  * `GET`: `/gates/{gateCode}/to/{targetGateCode}?round_trip={true|false}` - returns the roundtrip journey from `gateCode` to `targetGateCode`
 
-These endpoints should be public.
+These endpoints should be public and they should return [JSON](https://google.github.io/styleguide/jsoncstyleguide.xml?showone=Property_Name_Format#Property_Name_Format)
 
 ### Expectations
 * A link to the deployed API
@@ -127,6 +131,6 @@ These endpoints should be public.
 * Instructions on how to run the application locally
 
 # Getting help
-If you have any questions, please feel free to reach out to me via email (tco@keyholding.com).
+If you have any questions, please feel free to reach out to us via email (tco@keyholding.com or aks@keyholding.com).
 
 **This is a genuine offer for help** - I want to see you succeed! - and it lets me understand how you work and communicate.
