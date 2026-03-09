@@ -103,7 +103,6 @@ You can make use of the SQL script [`create-local-postgres-db.sql`](./create-loc
 
 
 ## Your task:
-
 Implement an application that allows users to calculate the cost of their journey using the HSTC network. 
 This challenge has a backend, infrastructure and frontend components, but if you do not have time to implement all of them, you can prioritise and implement any two of these components.
 
@@ -122,30 +121,38 @@ The API should expose, at least, the following endpoints:
 
 These endpoints should be public and they should return [JSON](https://google.github.io/styleguide/jsoncstyleguide.xml?showone=Property_Name_Format#Property_Name_Format)
 
-### 2. Frontend
-Write a separate frontend that allows users to interact with the API. 
+### 2. Infrastructure
+Deploy the backend API to a cloud provider of your choice (AWS, GCP, Azure, etc...) and share Infrastructure config/code - e.g. Terraform.
 
-It should allow users to:
+### 3. Frontend
+Write a separate frontend that allows users to interact with the API. You can use React or React Native, depending on whether you opt to build the frontend as a webapp or a mobile app.
+
+The app should allow users to:
 * View the list of gates and their details
 * View the optimal route between two given gates 
 * Calculate the cost of their journey to the nearest gate
 * Calculate the cost of their journey from one gate to another
 
-### 3. Expectations
+### 4. Expectations
 * A link to the deployed API
-* A link to the deployed frontend (if you implemented it)
 * API documentation - e.g. Swagger, Postman collection
-* Any diagrams, plans or notes you made while designing the solution
-* A git repository with the solution
+* A git repository with the BE solution
     * Application code
         * Use any programming language you like (unless stated otherwise)
     * Infrastructure config/code - e.g. Terraform
     * Tests
     * Any CI/CD configuration - e.g. github actions
     * Any supporting scripts to generate, package, run, etc...
+* A link to the deployed frontend (if you implemented it)
+* A git repository with the FE solution (if you implemented it)
+    * Application code (React/React Native)
+    * Tests
+    * Any CI/CD configuration - e.g. github actions
+    * Any supporting scripts to generate, package, run, etc...
+* Any diagrams, plans or notes you made while designing the solution
 * Instructions on how to run the application locally
 
 # Getting help
 If you have any questions, please feel free to reach out to us via email (tco@keyholding.com or aks@keyholding.com).
 
-**This is a genuine offer for help** - I want to see you succeed! - and it lets me understand how you work and communicate.
+**This is a genuine offer for help** - We want to see you succeed! - and it lets us understand how you work and communicate.
