@@ -105,7 +105,7 @@ You can make use of the SQL script [`create-local-postgres-db.sql`](./create-loc
 ## Your task:
 
 Implement an application that allows users to calculate the cost of their journey using the HSTC network. 
-This challenge has a backend, infrastructure and frontend components, but if you do not have to implement all of them, you can prioritise and implement any two of these components.
+This challenge has a backend, infrastructure and frontend components, but if you do not have time to implement all of them, you can prioritise and implement any two of these components.
 
 ### 1. Backend
 Write a server that exposes an API that allows a user to calculate the cost of their journey:
