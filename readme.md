@@ -103,6 +103,11 @@ You can make use of the SQL script [`create-local-postgres-db.sql`](./create-loc
 
 
 ## Your task:
+
+Implement an application that allows users to calculate the cost of their journey using the HSTC network. 
+This challenge has a backend, infrastructure and frontend components, but if you do not have to implement all of them, you can prioritise and implement any two of these components.
+
+### 1. Backend
 Write a server that exposes an API that allows a user to calculate the cost of their journey:
 * From wherever they are to the nearest gate
 * From one gate to a destination gate
@@ -117,8 +122,18 @@ The API should expose, at least, the following endpoints:
 
 These endpoints should be public and they should return [JSON](https://google.github.io/styleguide/jsoncstyleguide.xml?showone=Property_Name_Format#Property_Name_Format)
 
-### Expectations
+### 2. Frontend
+Write a separate frontend that allows users to interact with the API. 
+
+It should allow users to:
+* View the list of gates and their details
+* View the optimal route between two given gates 
+* Calculate the cost of their journey to the nearest gate
+* Calculate the cost of their journey from one gate to another
+
+### 3. Expectations
 * A link to the deployed API
+* A link to the deployed frontend (if you implemented it)
 * API documentation - e.g. Swagger, Postman collection
 * Any diagrams, plans or notes you made while designing the solution
 * A git repository with the solution
